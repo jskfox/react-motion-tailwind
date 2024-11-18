@@ -5,17 +5,19 @@ import viteLogo from "/vite.svg";
 
 function App() {
   const [visible, setVisible] = useState(true);
-
+  const css = {
+    motionButton: 'button-switch p-2 m-4',
+  }
   return (
     <>
       <motion.button layout 
-      className="button-switch p-2 m-4"
+      className={css.motionButton}
       whileHover={{scale: 1.1,rotate:4}}
       whileTap={{scale: 0.9,rotate:-4}}
       onClick={() => setVisible(!visible)}>Animar</motion.button>
       
       <motion.button layout 
-      className="button-switch p-2 m-4"
+      className={css.motionButton}
       whileHover={{scale: 1.1,rotate:4}}
       whileTap={{scale: 0.9,rotate:-4}}
       onClick={() => setVisible(!visible)}>Haz click!</motion.button>
