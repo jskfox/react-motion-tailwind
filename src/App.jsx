@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, MotionConfig, useAnimationControls, useInView } from "framer-motion";
+import { AnimatePresence, motion, MotionConfig, useAnimationControls, useInView, useScroll, useSpring } from "framer-motion";
 import { useRef, useState } from "react";
 import "./App.css";
 import viteLogo from "/vite.svg";
@@ -8,6 +8,8 @@ function App() {
   const controls = useAnimationControls();
   const ref = useRef();
   const divIsInView = useInView(ref,{once:true});
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 400, damping: 90 });
   const css = {
     motionButton: 'button-switch p-2 m-4',
   }
@@ -18,7 +20,11 @@ function App() {
 
   
   return (
-    <>
+    <>      
+      <motion.div className="h-6 w-screen top-0 left-0 bg-lime-500 text-gray-800 sticky origin-left"
+        style={{ scaleX }}
+      />          
+      
       <MotionConfig transition={{ duration: 0.1, ease: "easeInOut" }}>
         <motion.button
           layout
@@ -44,24 +50,12 @@ function App() {
       
       <button onClick={handleClick}>Girar!</button>
 
-      <motion.div 
-        className="flex items-center justify-center p-4 bg-slate-200 w-72 h-screen rounded-lg shadow-lg text-gray-800"
-        variants={{
-          inicial: {rotate: 0},
-          girar: {rotate: 360},
-        }}
-        initial="inicial"
-        animate={controls}             
-        >
-            Contenido
-      </motion.div>
-      
-      <div className="flex items-center justify-center h-72">
+      <div className="flex items-center justify-center h-72 w-1/2 m-auto">
         <AnimatePresence mode="popLayout">          
           {visible && (
             <motion.img
               src={viteLogo}
-              className="logo size-32"
+              className="logo w-32 m-auto"
               alt="Vite logo"
               initial={{
                 rotate: 0,
@@ -82,8 +76,22 @@ function App() {
           )}
         </AnimatePresence>
       </div>
+
+      <motion.div 
+        className="m-auto w-80 pt-32 bg-slate-200 align-middle items-center h-screen  text-gray-800"
+        variants={{
+          inicial: {rotate: 0},
+          girar: {rotate: 360},
+        }}
+        initial="inicial"
+        animate={controls}             
+        >
+            Contenido
+      </motion.div>
       
-      <motion.div className="h-screen w-96  bg-cyan-600"
+      
+      
+      <motion.div className="flex m-auto h-screen w-96  bg-cyan-600"
         initial={{
           opacity:0,
           // scale:0.5,
@@ -99,7 +107,7 @@ function App() {
       >
       </motion.div>
       
-      <motion.div className={`transition-colors duration-1000 h-screen w-96 ${!divIsInView ? "bg-green-400":"bg-orange-400"} `}
+      <motion.div className={`transition-colors m-auto duration-1000 h-screen w-96 ${!divIsInView ? "bg-green-400":"bg-orange-400"} `}
         ref={ref}
         initial={{
           opacity:1,
