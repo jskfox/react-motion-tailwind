@@ -22,12 +22,7 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
+  /* min-width: 320px; */
+  min-width: 50vw;
   min-height: 100vh;
-}
-
-@layer components {
-  /* .button-switch {
-    @apply p-2 m-4;
-  } */
 }
