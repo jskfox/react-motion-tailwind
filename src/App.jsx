@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, MotionConfig, useAnimationControls, useInView, useScroll, useSpring } from "framer-motion";
 import { useRef, useState } from "react";
 import "./App.css";
+import ScrollRevealEffect from "./components/ScrollEffect";
 import viteLogo from "/vite.svg";
 
 function App() {
@@ -106,18 +107,19 @@ function App() {
         }}
       >
       </motion.div>
-      
-      <motion.div className={`transition-colors m-auto duration-1000 h-screen w-96 ${!divIsInView ? "bg-green-400":"bg-orange-400"} `}
-        ref={ref}
-        initial={{
-          opacity:1,
-        }}
-        transition={{duration:1}}
-        whileInView={{
-          opacity:1, 
-        }}
-      >
-      </motion.div>
+      <ScrollRevealEffect>
+        <motion.div className={`transition-colors m-auto duration-1000 h-screen w-96 ${!divIsInView ? "bg-green-400":"bg-orange-400"} `}
+          ref={ref}
+          initial={{
+            opacity:1,
+          }}
+          transition={{duration:1}}
+          whileInView={{
+            opacity:1, 
+          }}
+        >
+        </motion.div>
+      </ScrollRevealEffect>
     </>
   );
 }
